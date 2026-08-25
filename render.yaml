@@ -1,0 +1,60 @@
+services:
+  - type: web
+    name: reachinbox-backend
+    runtime: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm install && npm run build
+    # Runs migrations on every deploy (idempotent), then boots the API server
+    # and the BullMQ worker as two processes inside one free web service.
+    startCommand: npm run db:migrate && npm run start:all
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: FRONTEND_URL
+        sync: false # set to your Vercel URL, e.g. https://reachinbox.vercel.app
+      - key: DATABASE_URL
+        sync: false # Neon connection string (include ?sslmode=require)
+      - key: REDIS_URL
+        sync: false # Redis Cloud connection string (rediss:// for TLS)
+      - key: WORKER_CONCURRENCY
+        value: "5"
+      - key: MIN_DELAY_BETWEEN_EMAILS_MS
+        value: "2000"
+      - key: MAX_EMAILS_PER_HOUR
+        value: "200"
+      - key: MAX_EMAILS_PER_HOUR_PER_SENDER
+        value: "50"
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: GOOGLE_CALLBACK_URL
+        sync: false # https://<your-render-service>.onrender.com/api/auth/google/callback
+      - key: JWT_SECRET
+        generateValue: true
+      - key: SESSION_COOKIE_NAME
+        value: reachinbox_session
+      - key: SMTP_SENDER_IDS
+        value: sender1,sender2
+      - key: SENDER_SENDER1_HOST
+        value: smtp.ethereal.email
+      - key: SENDER_SENDER1_PORT
+        value: "587"
+      - key: SENDER_SENDER1_USER
+        sync: false
+      - key: SENDER_SENDER1_PASS
+        sync: false
+      - key: SENDER_SENDER1_FROM_NAME
+        value: ReachInbox Sender 1
+      - key: SENDER_SENDER2_HOST
+        value: smtp.ethereal.email
+      - key: SENDER_SENDER2_PORT
+        value: "587"
+      - key: SENDER_SENDER2_USER
+        sync: false
+      - key: SENDER_SENDER2_PASS
+        sync: false
+      - key: SENDER_SENDER2_FROM_NAME
+        value: ReachInbox Sender 2
