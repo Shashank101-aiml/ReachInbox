@@ -65,17 +65,14 @@ Login is real Google OAuth (`google-auth-library`, server-side authorization-cod
    ```
 5. Restart the backend (`npm run dev`), open `http://localhost:3000`, click "Sign in with Google".
 
-
-
-**V
 ## Configuration
 
 
-| `WORKER_CONCURRENCY`  -BullMQ worker concurrency (jobs processed in parallel) 
-| `MIN_DELAY_BETWEEN_EMAILS_MS`  Minimum delay enforced between individual email sends 
-| `MAX_EMAILS_PER_HOUR` Global cap on emails sent per rolling hour window (here 0 = disabled) 
-| `MAX_EMAILS_PER_HOUR_PER_SENDER` -Per-sender cap on emails sent per rolling hour window (same 0 = disabled) 
-| `SMTP_SENDER_IDS` + `SENDER_<ID>_*` -Multiple Ethereal SMTP sender identities |
+ `WORKER_CONCURRENCY`  -BullMQ worker concurrency (jobs processed in parallel) 
+ `MIN_DELAY_BETWEEN_EMAILS_MS`  Minimum delay enforced between individual email sends 
+ `MAX_EMAILS_PER_HOUR` Global cap on emails sent per rolling hour window (here 0 = disabled) 
+ `MAX_EMAILS_PER_HOUR_PER_SENDER` -Per-sender cap on emails sent per rolling hour window (same 0 = disabled) 
+ `SMTP_SENDER_IDS` + `SENDER_<ID>_*` -Multiple Ethereal SMTP sender identities 
 
 ## API
 
