@@ -5,8 +5,6 @@ services:
     plan: free
     rootDir: backend
     buildCommand: npm install && npm run build
-    # Runs migrations on every deploy (idempotent), then boots the API server
-    # and the BullMQ worker as two processes inside one free web service.
     startCommand: npm run db:migrate && npm run start:all
     healthCheckPath: /health
     envVars:
